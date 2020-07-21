@@ -3,7 +3,7 @@ const app = express();
 const path = require('path');//une directorios
 
 //servidor, plantillas, etc
-app.set('port', process.env.PORT || 4000); //busca un puerto en el pc sino encuentra usa 4000
+app.set('port', process.env.PORT || 5000); //busca un puerto en el pc sino encuentra usa 4000
 
 //midlawares
 app.use(express.json());

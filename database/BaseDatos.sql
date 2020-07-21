@@ -7,8 +7,10 @@ CREATE DATABASE ProyectoFinalAdministracion;
 	nombrerol VARCHAR(15) NOT NULL
 	);
 
-	INSERT INTO rol(idrol, nombrerol) VALUES (1, 'usuario');
-	INSERT INTO rol(idrol, nombrerol) VALUES (2, 'evaluador');
+	INSERT INTO rol(nombrerol) VALUES ('administrador');
+	INSERT INTO rol(nombrerol) VALUES ('usuario');
+	INSERT INTO rol(nombrerol) VALUES ('evaluador');
+	
 	INSERT INTO persona(nombres, apellidos, correo, contrasena, rol) VALUES ('administrador','admin','admin@gmail.com','1234','administrador');
 	ALTER TABLE documento ADD CONSTRAINT fkdocumento_persona FOREIGN KEY (idpersona)
 	REFERENCES persona(idpersona);

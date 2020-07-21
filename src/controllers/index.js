@@ -53,7 +53,7 @@ const RegistrarPersona = async (req, res) => {
     const validarcorreo = await consultaRepetida(correo);
     console.log("holaaa");
     if (validarcorreo == 0) {
-        const response = await pool.query('INSERT INTO persona (nombres, apellidos, correo, contrasena) VALUES ($1, $2, $3, $4)', [nombres, apellidos, correo, contrasena]);
+        const response = await pool.query('INSERT INTO persona (nombres, apellidos, correo, contrasena, rol) VALUES ($1, $2, $3, $4, $5)', [nombres, apellidos, correo, contrasena, 2]);
         console.log('Emtro aqui');
         res.render('RegistroUsuario.html');
     } else if (validarcorreo != 0) {
@@ -88,11 +88,11 @@ const IniciarSesion = async (req, res) => {
         console.log('vaciooo');
     } else if (validarsesion == 0) {
         res.render('login.html');
-    } else if (validarsesion[0].rol == 'usuario') {
+    } else if (validarsesion[0].rol == 2) {
         res.render('PrincipalUsuario.html', { datospersona: validarsesion, datos: response });
-    } else if (validarsesion[0].rol == 'evaluador') {
+    } else if (validarsesion[0].rol == 3) {
         res.render('PrincipalEvaluador.html', { datospersona: validarsesion, datos: response });
-    } else if (validarsesion[0].rol == 'administrador') {
+    } else if (validarsesion[0].rol == 1) {
         const consulta2 = await consulta();
         res.render('persona.html', { datospersona: validarsesion, datos: consulta2 });
     }
@@ -240,6 +240,7 @@ const EvaluarDocumento = async (req, res) => {
 const session = (req, res) => {
     res.render('login.html');
 };
+
 
 const Registrar = (req, res) => {
     res.render('RegistroUsuario.html');

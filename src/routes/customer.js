@@ -6,7 +6,7 @@ const router = Router();
 const {controller, session, UsuarioPrincipal, postularDocumento, InformacionDocumento, EvaluadorPrincipal,
      RevisarPostulaciones, SubirArchivoEvaluador, Evaluar, Registrar, OlvidasteContrasena, RegistrarPersona, RegistrarDocumento, 
      getDocumento, IniciarSesion, BorrarPersona, actualizar, Actualizarpersona, BorrarDocumento, SubirDocumento, EvaluarDocumento,
-     InformacionDocumentoEvaluador, InformacionDocumentoOut}= require('../controllers/index');
+     InformacionDocumentoEvaluador, InformacionDocumentoOut, }= require('../controllers/index');
 
 //rutas vistas
 router.get('/', controller);

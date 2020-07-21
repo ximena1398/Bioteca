@@ -77,12 +77,12 @@
                     <input id="input" type="text" scope="col" name="id" value="<%= registro[0]['idpersona']%>">
                     </input>
                     <select name="rol">
-                        <% if(registro[0]['rol'] == 'usuario'){ %>
+                        <% if(registro[0]['rol'] = 2){ %>
                         <option value="<%= registro[0]['rol']%>">usuario</option>
-                        <option value="evaluador">evaluador</option>
-                        <% } else if(registro[0]['rol'] == 'evaluador'){ %>
+                        <option value=3>evaluador</option>
+                        <% } else if(registro[0]['rol'] = 3){ %>
                         <option value="<%= registro[0]['rol']%>">evaluador</option>
-                        <option value="usuario">usuario</option>
+                        <option value=2>usuario</option>
                         <% } %>
                     </select>
                     <input id="input" type="hidden" scope="col" name="rol2" value="<%= registro[0]['rol']%>"></input>
@@ -171,7 +171,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" href="/login">Salir</a>
+                    <a class="btn btn-primary" href="/">Salir</a>
                 </div>
             </div>
         </div>
