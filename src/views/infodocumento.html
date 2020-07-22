@@ -31,9 +31,10 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Nombre principal -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/PrincipalUsuario/<%= datospersona[0].idpersona%>">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+            <a class="sidebar-brand d-flex align-items-center justify-content-center"
+                href="/PrincipalUsuario/<%= datospersona[0].idpersona%>">
+                <div class="sidebar-brand-icon">
+                    <img src="http://imgfz.com/i/oLWDpq9.png" alt="holi" width="80" height="60" />
                 </div>
                 <div class="sidebar-brand-text mx-3"> BIOTECA </div>
             </a>
@@ -95,7 +96,8 @@
                         <a class="collapse-item" href="/PrincipalUsuario/<%= datospersona[0].idpersona%>">Botánica</a>
                         <a class="collapse-item" href="/PrincipalUsuario/<%= datospersona[0].idpersona%>">Zoología</a>
                         <a class="collapse-item" href="/PrincipalUsuario/<%= datospersona[0].idpersona%>">Ecología</a>
-                        <a class="collapse-item" href="/PrincipalUsuario/<%= datospersona[0].idpersona%>">Conservación</a>
+                        <a class="collapse-item"
+                            href="/PrincipalUsuario/<%= datospersona[0].idpersona%>">Conservación</a>
                         <a class="collapse-item" href="/PrincipalUsuario/<%= datospersona[0].idpersona%>">Genética</a>
                     </div>
                 </div>
@@ -134,7 +136,8 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=datospersona[0].nombres%></span>
+                                <span
+                                    class="mr-2 d-none d-lg-inline text-gray-600 small"><%=datospersona[0].nombres%></span>
                                 <img class="img-profile rounded-circle"
                                     src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
                             </a>
@@ -228,22 +231,22 @@
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Desea cerrar sesion?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Desea cerrar sesion?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                    <a class="btn btn-primary" href="/">Salir</a>
+                </div>
+            </div>
         </div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-          <a class="btn btn-primary" href="/">Salir</a>
-        </div>
-      </div>
     </div>
-  </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="../css/vendor/jquery/jquery.min.js"></script>

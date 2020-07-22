@@ -31,9 +31,10 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Nombre principal -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/PrincipalUsuario/<%= datospersona[0].idpersona%>">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+            <a class="sidebar-brand d-flex align-items-center justify-content-center"
+                href="/PrincipalUsuario/<%= datospersona[0].idpersona%>">
+                <div class="sidebar-brand-icon">
+                    <img src="http://imgfz.com/i/oLWDpq9.png" alt="holi" width="80" height="60" />
                 </div>
                 <div class="sidebar-brand-text mx-3"> BIOTECA </div>
             </a>
@@ -96,7 +97,8 @@
                         <a class="collapse-item" href="/PrincipalUsuario/<%= datospersona[0].idpersona%>">Botánica</a>
                         <a class="collapse-item" href="/PrincipalUsuario/<%= datospersona[0].idpersona%>">Zoología</a>
                         <a class="collapse-item" href="/PrincipalUsuario/<%= datospersona[0].idpersona%>">Ecología</a>
-                        <a class="collapse-item" href="/PrincipalUsuario/<%= datospersona[0].idpersona%>">Conservación</a>
+                        <a class="collapse-item"
+                            href="/PrincipalUsuario/<%= datospersona[0].idpersona%>">Conservación</a>
                         <a class="collapse-item" href="/PrincipalUsuario/<%= datospersona[0].idpersona%>">Genética</a>
                     </div>
                 </div>
@@ -148,7 +150,8 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%= datospersona[0].nombres%></span>
+                                <span
+                                    class="mr-2 d-none d-lg-inline text-gray-600 small"><%= datospersona[0].nombres%></span>
                                 <img class="img-profile rounded-circle"
                                     src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
                             </a>
@@ -176,11 +179,12 @@
                     <div class="row2">
                         <div class="form-group col-md-6">
                             <label for="inputEmail4">Título*</label>
-                            <input type="text" class="form-control form-control-user" id="Titulo" name="titulo" value="">
+                            <input type="text" class="form-control form-control-user" id="Titulo" name="titulo"
+                                value="">
 
                             <br><label for="inputEmail4">Descripción*</label></br>
-                            <input type="text" class="form-control form-control-user" id="Descripcion"
-                                value="" name="descripcion">
+                            <input type="text" class="form-control form-control-user" id="Descripcion" value=""
+                                name="descripcion">
 
                         </div>
                         <div class="form-group col-md-6">
@@ -286,23 +290,23 @@
 
     <script src="https://www.gstatic.com/firebasejs/7.9.3/firebase-app.js"></script>
 
-<!-- TODO: Add SDKs for Firebase products that you want to use
+    <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
 
-<script>
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyBBef4UHTtd4-dJzRgrfoZcm-haFVUIGeU",
-    authDomain: "proyecto-bioteca.firebaseapp.com",
-    databaseURL: "https://proyecto-bioteca.firebaseio.com",
-    projectId: "proyecto-bioteca",
-    storageBucket: "proyecto-bioteca.appspot.com",
-    messagingSenderId: "357420235789",
-    appId: "1:357420235789:web:7bdd709aab91a6deb36944"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-</script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyBBef4UHTtd4-dJzRgrfoZcm-haFVUIGeU",
+            authDomain: "proyecto-bioteca.firebaseapp.com",
+            databaseURL: "https://proyecto-bioteca.firebaseio.com",
+            projectId: "proyecto-bioteca",
+            storageBucket: "proyecto-bioteca.appspot.com",
+            messagingSenderId: "357420235789",
+            appId: "1:357420235789:web:7bdd709aab91a6deb36944"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
 
 </body>
 
