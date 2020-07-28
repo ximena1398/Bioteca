@@ -1,71 +1,65 @@
 // Your web app's Firebase configuration
+
 var firebaseConfig = {
-    apiKey: "AIzaSyBBef4UHTtd4-dJzRgrfoZcm-haFVUIGeU",
-    authDomain: "proyecto-bioteca.firebaseapp.com",
-    databaseURL: "https://proyecto-bioteca.firebaseio.com",
-    projectId: "proyecto-bioteca",
-    storageBucket: "proyecto-bioteca.appspot.com",
-    messagingSenderId: "357420235789",
-    appId: "1:357420235789:web:7bdd709aab91a6deb36944"
-};
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+    apiKey: "AIzaSyC7rFd7iqWu-w_DD51AihdP4IOLbnHIbYU",
+    authDomain: "bioteca-4645c.firebaseapp.com",
+    databaseURL: "https://bioteca-4645c.firebaseio.com",
+    projectId: "bioteca-4645c",
+    storageBucket: "bioteca-4645c.appspot.com",
+    messagingSenderId: "68695445537",
+    appId: "1:68695445537:web:e906ddc54407fbd1985360",
+    measurementId: "G-30E3QJVZFP"
+  };
+  // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
 
-var db = firebase.firestore();
+    var TituloDocumento = document.getElementById('Titulo');
+    var Descripcion = document.getElementById('Descripcion');
+    var FechaPublicacion = document.getElementById('FechaPublicacion');
+    var Categorias = document.getElementById('Categorias');
+    var Tipos = document.getElementById('Tipos');
+    var Cargar = document.getElementById('Cargar');
+    var uploader=document.getElementById('uploader');
+    var LabelArchivo=document.getElementById('LabelArchivo');
+    var Archivo=document.getElementById('customFileLang');
+    var ContadorAutores=document.getElementById('ContadorAutores');
+    var DivForm=document.getElementById('DivForm');
+    var Agregador=document.getElementById("Agregador");
+    var c=0;
 
-var TituloDocumento = document.getElementById('Titulo');
-var Descripcion = document.getElementById('Descripcion');
-var FechaPublicacion = document.getElementById('FechaPublicacion');
-var Categorias = document.getElementById('Categorias');
-var Tipos = document.getElementById('Tipos');
+    Archivo.addEventListener('change', function(e){
+        TituloDocumento.value=e.target.files[0].name;
+        TituloDocumento.disabled=false;
+        Descripcion.disabled=false;
+        FechaPublicacion.disabled=false;
+        Categorias.disabled=false;
+        Tipos.disabled=false;
+        Cargar.disabled=false;
+        Agregador.disabled=false;
+        LabelArchivo.innerHTML=e.target.files[0].name;
+    }); 
 
-var idPostulaciones = "";
-var Postular = document.getElementById('Postular');
-
-var MiPostulacion = document.getElementById('MiPostulacion');
-
-function PostularDocumento() {
-    alert("holi");
-    db.collection("Documentos").add({
-        TutuloDocumento: TituloDocumento.value,
-        Descripcion: Descripcion.value,
-        FechaPublicacion: FechaPublicacion.value,
-        Categoria: Categorias.value,
-        Tipo: Tipos.value
-    })
-        .then(function (docRef) {
-            console.log("Usuario agregado", docRef.id);
-            MisPostulaciones();
-        })
-        .catch(function (error) {
-            console.error("Error", error);
-        });
-}
-
-function MisPostulaciones() {
-    MiPostulacion.innerHTML = "";
-    db.collection("Documentos").get().then((querySnapshot) => {
-        querySnapshot.forEach(async(doc) => {
-            MiPostulacion.innerHTML += `
-                <tr>
-                    <td>${doc.data().TutuloDocumento}</td>
-                    <td>${doc.data().FechaPublicacion}</td>
-                    <td>Pendiente</td>
-                </tr>
-            `;
-        });
+    function Firebase(){
+    var file=Archivo.files[0];
+    var storageRef=firebase.storage().ref().child(file.name);
+    var task=storageRef.put(file);
+    
+    task.on('state_changed',
+    function progress(snapshot){
+        var p=(snapshot.bytesTransferred/snapshot.totalBytes)*100;
+        uploader.value=p;
     });
-}
+    };
 
-//lee la noticia y la muestra en los input 
-function leerPostulacionesID(id) {;
-    idPostulaciones = id;
-    Postular.classList.add('d-none');
-    db.collection("Documentos").doc(id)
-        .onSnapshot(async function(doc) {
-            TituloDocumento.value = doc.data().TutuloDocumento;
-            FechaPublicacion.value = doc.data().FechaPublicacion;
-        });
-}
+    function AgregarAutorInput(){
+        ContadorAutores.value=c
+        c++;
+        var input=document.createElement("INPUT");
+        input.type='text';
+        input.name='Autores'+c;
+        input.className="form-control form-control-user"
 
-MisPostulaciones();
+        DivForm.appendChild(input);
+    }
+
+    

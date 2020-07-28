@@ -164,22 +164,27 @@
             <div>
                 <form method="POST" action="/subirDocumento/<%= datospersona[0].idpersona%>">
                     <div class="row2">
-                        <div class="form-group col-md-6">
+                        <div id="DivForm" class="form-group col-md-6">
                             <label for="inputEmail4">Título*</label>
-                            <input type="text" class="form-control form-control-user" id="Titulo" name="titulo"
-                                value="">
+                            <input disabled type="text" class="form-control form-control-user" id="Titulo" name="titulo"
+                                value="  ">
 
                             <br><label for="inputEmail4">Descripción*</label></br>
-                            <input type="text" class="form-control form-control-user" id="Descripcion" value=""
+                            <input disabled type="text" class="form-control form-control-user" id="Descripcion" value=""
                                 name="descripcion">
+
+                                <br><label for="inputEmail4">Autores*</label></br>
+                            
+                                <input type="checkbox" onchange="AgregarAutorInput()" id="Agregador" disabled>+</input>
+                                <input id="ContadorAutores" onclick="" type="hidden">
 
                         </div>
                         <div class="form-group col-md-6">
                             <label for="inputPassword4">Fecha Publicacion*</label>
-                            <input type="date" class="form-control form-control-user" placeholder="Fecha Publicacion"
+                            <input disabled type="date" class="form-control form-control-user" placeholder="Fecha Publicacion"
                                 id="FechaPublicacion" name="fecha">
                             <br>
-                            <select class="custom-select custom-select-sm" id="Categorias" name="categoria">
+                            <select disabled class="custom-select custom-select-sm" id="Categorias" name="categoria">
                                 <option selected>Categoría</option>
                                 <option value="1">Animales</option>
                                 <option value="2">Plantas</option>
@@ -192,7 +197,7 @@
                             </select>
                             </br>
                             <br>
-                            <select class="custom-select custom-select-sm" id="Tipos" name="tipo">
+                            <select disabled class="custom-select custom-select-sm" id="Tipos" name="tipo">
                                 <option selected>Tipo de documento</option>
                                 <option value="1">Libro</option>
                                 <option value="2">Artículo</option>
@@ -204,7 +209,7 @@
                     </div>
                     <div>
                         <center>
-                            <button id="Postular" type="submit" class="btn btn-primary">Subir archivo</button>
+                            <button disabled id="Cargar" onclick="Firebase()" type="submit" class="btn btn-primary">Subir archivo</button>
                         </center>
                     </div>
                     <h1></h1>
@@ -215,7 +220,10 @@
                         <div class="form-group">
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="customFileLang" lang="es">
-                                <label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
+                                <label class="custom-file-label" for="customFileLang" id="LabelArchivo">Debe seleccionar un Archivo primero</label>
+                                <center>
+                                <progress id="uploader" value="0" max="100" min='0'></progress>
+                                </center>
                             </div>
                         </div>
                     </form>
@@ -276,6 +284,47 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-analytics.js"></script>
+
+    <!--Cloud Firestore-->
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-auth.js"></script>
+
+    <script src="../css/js/postular.js"></script>
+    
+    <script>
+         // Your web app's Firebase configuration
+    /*var firebaseConfig = {
+    apiKey: "AIzaSyC7rFd7iqWu-w_DD51AihdP4IOLbnHIbYU",
+    authDomain: "bioteca-4645c.firebaseapp.com",
+    databaseURL: "https://bioteca-4645c.firebaseio.com",
+    projectId: "bioteca-4645c",
+    storageBucket: "bioteca-4645c.appspot.com",
+    messagingSenderId: "68695445537",
+    appId: "1:68695445537:web:e906ddc54407fbd1985360",
+    measurementId: "G-30E3QJVZFP"
+  };
+  // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    var i=document.getElementById('i');
+    var uploader=document.getElementById('uploader');
+
+    function Firebase(){
+    var file=document.getElementById('customFileLang').files[0];
+    
+    var storageRef=firebase.storage();
+    i.value=file;
+    var task=storageRef.put(file);
+    task.on('state_changed',
+    function progress(snapshot){
+        var p=(snapshot.bytesTransferred/snapshot.totalBytes)*100;
+        uploader.value=p;
+    });
+    };*/
+    </script>
 
 </body>
 

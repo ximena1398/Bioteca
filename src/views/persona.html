@@ -74,7 +74,7 @@
 
                 <% if(typeof registro !== 'undefined'){ %>
                 <form name="formDatos" method="POST" action="/Actualizarpersona">
-                    <input id="input" type="text" scope="col" name="id" value="<%= registro[0]['idpersona']%>">
+                    <input id="input" type="hidden" scope="col" name="id" value="<%= registro[0]['idpersona']%>">
                     </input>
                     <select name="rol">
                         <% if(registro[0]['rol'] = 2){ %>

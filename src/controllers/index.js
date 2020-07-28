@@ -172,10 +172,9 @@ const RegistrarDocumento = async (req, res) => {
 };
 
 const SubirDocumento = async (req, res) => {
-    console.log('hola');
     const id = req.params.id;
     const persona = await consultaId(id);
-    const { titulo, fecha, descripcion, tipo } = req.body;
+    const { titulo, fecha, descripcion, tipo,Autores} = req.body;
     const response = await pool.query('INSERT INTO documento (titulo, fecha_publicacion, descripcion, tipo_idtipo, idpersona) VALUES ($1, $2, $3, $4, $5)', [titulo, fecha, descripcion, tipo, id]);
     res.render('subirarchivo.html', { datospersona: persona });
 };
