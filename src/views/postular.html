@@ -52,11 +52,19 @@
             <!-- Division -->
             <hr class="sidebar-divider">
 
-            <li class="nav-item">
-                <a class="nav-link" href="/mispostulacione/<%= datospersona[0].idpersona%>">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>MIS POSTULACIONES</span></a>
-            </li>
+            <% if (datospersona[0].rol==3){ %>
+                <li class="nav-item">
+                  <a class="nav-link" href="/Postulaciones/<%= datospersona[0].idpersona%>">
+                      <i class="fas fa-fw fa-chart-area"></i>
+                      <span>POSTULACIONES</span></a>
+              </li>
+                <% }else if (datospersona[0].rol==2){ %>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/mispostulacione/<%= datospersona[0].idpersona%>">
+                      <i class="fas fa-fw fa-chart-area"></i>
+                      <span>MIS POSTULACIONES</span></a>
+                  </li>
+                 <% } %>
 
             <!-- Division -->
             <hr class="sidebar-divider">

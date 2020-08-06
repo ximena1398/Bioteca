@@ -25,7 +25,9 @@ var firebaseConfig = {
     var ContadorAutores=document.getElementById('ContadorAutores');
     var DivForm=document.getElementById('DivForm');
     var Agregador=document.getElementById("Agregador");
+    var FormSubir=document.getElementById("FormSubir");
     var c=0;
+
 
     Archivo.addEventListener('change', function(e){
         TituloDocumento.value=e.target.files[0].name;
@@ -48,6 +50,9 @@ var firebaseConfig = {
     function progress(snapshot){
         var p=(snapshot.bytesTransferred/snapshot.totalBytes)*100;
         uploader.value=p;
+        if(p==100){
+            FormSubir.submit();
+        }
     });
     };
 

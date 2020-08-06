@@ -52,11 +52,21 @@
             <!-- Division -->
             <hr class="sidebar-divider">
 
-            <li class="nav-item">
-                <a class="nav-link" href="/Postulaciones/<%= datospersona[0].idpersona%>">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>POSTULACIONES</span></a>
-            </li>
+            <% if(typeof datospersona !== 'undefined'){ %>
+                <% if (datospersona[0].rol==3){ %>
+               <li class="nav-item">
+                 <a class="nav-link" href="/Postulaciones/<%= datospersona[0].idpersona%>">
+                     <i class="fas fa-fw fa-chart-area"></i>
+                     <span>POSTULACIONES</span></a>
+             </li>
+               <% }else if (datospersona[0].rol==2){ %>
+                 <li class="nav-item">
+                   <a class="nav-link" href="/mispostulacione/<%= datospersona[0].idpersona%>">
+                     <i class="fas fa-fw fa-chart-area"></i>
+                     <span>MIS POSTULACIONES</span></a>
+                 </li>
+                <% } %>
+             <% } %>
             <!-- Division -->
             <hr class="sidebar-divider">
 
@@ -162,7 +172,7 @@
             </div>
 
             <div>
-                <form method="POST" action="/subirDocumento/<%= datospersona[0].idpersona%>">
+                <form id="FormSubir" method="POST" action="/subirDocumento/<%= datospersona[0].idpersona%>" onsubmit="return false">
                     <div class="row2">
                         <div id="DivForm" class="form-group col-md-6">
                             <label for="inputEmail4">Título*</label>
@@ -176,7 +186,7 @@
                                 <br><label for="inputEmail4">Autores*</label></br>
                             
                                 <input type="checkbox" onchange="AgregarAutorInput()" id="Agregador" disabled>+</input>
-                                <input id="ContadorAutores" onclick="" type="hidden">
+                                <input id="ContadorAutores" onclick="" type="hidden" name=contador>
 
                         </div>
                         <div class="form-group col-md-6">

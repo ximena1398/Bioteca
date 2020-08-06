@@ -30,7 +30,7 @@ const consultaId = async (id) => {
 };
 
 const consultaLogin = async (correoc, contrasenac) => {
-    const response = await pool.query('SELECT * FROM persona where correo = $1 and contrasena = $2', [correoc, contrasenac]);
+    const response = await pool.query('SELECT * FROM persona WHERE correo = $1 and contrasena = $2', [correoc, contrasenac]);
     return response.rows;
 };
 
@@ -82,16 +82,16 @@ const IniciarSesion = async (req, res) => {
     const { correo, contrasena } = req.body;
     const validarsesion = await consultaLogin(correo, contrasena);
     const response = await consultaDocumento();
-
     if (correo == '' || contrasena == '') {
+        ms="No digitó nada";
         res.render('login.html');
-        console.log('vaciooo');
     } else if (validarsesion == 0) {
+        ms="No coinciden los datos con una cuenta"
         res.render('login.html');
     } else if (validarsesion[0].rol == 2) {
-        res.render('PrincipalUsuario.html', { datospersona: validarsesion, datos: response });
+        res.render('index.html', { datospersona: validarsesion, datos: response });
     } else if (validarsesion[0].rol == 3) {
-        res.render('PrincipalEvaluador.html', { datospersona: validarsesion, datos: response });
+        res.render('index.html', { datospersona: validarsesion, datos: response });
     } else if (validarsesion[0].rol == 1) {
         const consulta2 = await consulta();
         res.render('persona.html', { datospersona: validarsesion, datos: consulta2 });
@@ -174,7 +174,8 @@ const RegistrarDocumento = async (req, res) => {
 const SubirDocumento = async (req, res) => {
     const id = req.params.id;
     const persona = await consultaId(id);
-    const { titulo, fecha, descripcion, tipo,Autores} = req.body;
+    const { titulo, fecha, descripcion, tipo,contador} = req.body;
+    
     const response = await pool.query('INSERT INTO documento (titulo, fecha_publicacion, descripcion, tipo_idtipo, idpersona) VALUES ($1, $2, $3, $4, $5)', [titulo, fecha, descripcion, tipo, id]);
     res.render('subirarchivo.html', { datospersona: persona });
 };

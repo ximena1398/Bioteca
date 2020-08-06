@@ -51,7 +51,21 @@
       <!-- Division -->
       <hr class="sidebar-divider">
 
-
+      <% if(typeof datospersona !== 'undefined'){ %>
+       <% if (datospersona[0].rol==3){ %>
+      <li class="nav-item">
+        <a class="nav-link" href="/Postulaciones/<%= datospersona[0].idpersona%>">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>POSTULACIONES</span></a>
+    </li>
+      <% }else if (datospersona[0].rol==2){ %>
+        <li class="nav-item">
+          <a class="nav-link" href="/mispostulacione/<%= datospersona[0].idpersona%>">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>MIS POSTULACIONES</span></a>
+        </li>
+       <% } %>
+    <% } %>
       <!-- item libros -->
       <li class="nav-item">
         <a class="nav-link" href="/">
@@ -129,11 +143,61 @@
           <!-- panel de postular y usuario -->
           <ul class="navbar-nav ml-auto">
 
-
+            <% if(typeof datospersona == 'undefined'){ %>
             <a href="/login" class="row2">
               <button type="button" class="btn btn-primary btn-lg">Iniciar sesión</button>
             </a>
 
+            <% }else if (datospersona[0].rol==3){ %>
+            <a href="/subirarchivo/<%= datospersona[0].idpersona%>" class="row2">
+              <button type="button" class="btn btn-primary btn-lg">Subir Archivo</button>
+          </a>
+
+          <div class="topbar-divider d-none d-sm-block"></div>
+
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%= datospersona[0].nombres%></span>
+                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+              </a>
+
+              <!-- Dropdown - User Information -->
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="" data-toggle="modal" data-target="#logoutModal">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Salir
+                </a>
+              </div>
+            </li>
+
+          <% } else if (datospersona[0].rol==2){ %>
+            <a href="/subirarchivo/<%= datospersona[0].idpersona %>" class="row2">
+              <button type="button" class="btn btn-primary btn-lg">Postular</button>
+            </a>
+            <div class="topbar-divider d-none d-sm-block"></div>
+
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%= datospersona[0].nombres%></span>
+                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+              </a>
+
+              <!-- Dropdown - User Information -->
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="" data-toggle="modal" data-target="#logoutModal">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Salir
+                </a>
+              </div>
+            </li>
+            
+          <% } %>
           </ul>
 
         </nav>
@@ -142,6 +206,7 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
+          <% if(typeof datospersona == 'undefined'){ %>
           <center>
             <div class="">
               <img src="http://imgfz.com/i/GBESMT6.png" width="450"
@@ -152,6 +217,7 @@
               </h4>
             </div>
           </center>
+          
 
 
           <img src="https://pidamazonia.com/sites/default/files/Actualidad/Foto%20web%20mayo.png" width="1170"
@@ -159,7 +225,7 @@
           <p>
 
           </p>
-
+          <% } %>
           <!-- Content Column -->
 
 
