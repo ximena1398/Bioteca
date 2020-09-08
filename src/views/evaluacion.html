@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Evaluación</title>
 
     <!-- Custom fonts for this template-->
     <link href="../css/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -19,7 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
-
+    <link rel="icon" type="image/png" href="http://imgfz.com/i/oLWDpq9.png" />
 </head>
 
 <body id="page-top">
@@ -63,46 +63,53 @@
 
 
             <!-- item libros -->
-            <li class="nav-item">
-                <a class="nav-link" href="/PrincipalEvaluador/<%= datospersona[0].idpersona%>">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>LIBROS</span></a>
-            </li>
+            <form method="POST" action="/PrincipalEvaluador/<%= datospersona[0].idpersona%>">
+                <!-- item libros -->
+                <li class="nav-item">
+                    <button type="submit" class="btn btn-outline-info btn-user btn-block" name="libros"
+                        value="1">LIBROS</button>
+                </li>
 
-            <!-- item revistas -->
-            <li class="nav-item">
-                <a class="nav-link" href="/PrincipalEvaluador/<%= datospersona[0].idpersona%>">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>REVISTAS</span></a>
-            </li>
+                <!-- item revistas -->
+                <li class="nav-item">
+                    <button type="submit" class="btn btn-outline-info btn-user btn-block" name="revistas"
+                        value="1">REVISTAS</button>
+                </li>
 
-            <!-- item articulos-->
-            <li class="nav-item">
-                <a class="nav-link" href="/PrincipalEvaluador/<%= datospersona[0].idpersona%>">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>ARTÍCULOS</span></a>
-            </li>
+                <!-- item articulos-->
+                <li class="nav-item">
+                    <button type="submit" class="btn btn-outline-info btn-user btn-block" name="articulos"
+                        value="1">ARTÍCULOS</button>
+                </li>
 
-            <!-- categorias  -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>CATEGORÍAS</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/PrincipalEvaluador/<%= datospersona[0].idpersona%>">Animales</a>
-                        <a class="collapse-item" href="/PrincipalEvaluador/<%= datospersona[0].idpersona%>">Plantas</a>
-                        <a class="collapse-item" href="/PrincipalEvaluador/<%= datospersona[0].idpersona%>">Botánica</a>
-                        <a class="collapse-item" href="/PrincipalEvaluador/<%= datospersona[0].idpersona%>">Zoología</a>
-                        <a class="collapse-item" href="/PrincipalEvaluador/<%= datospersona[0].idpersona%>">Ecología</a>
-                        <a class="collapse-item"
-                            href="/PrincipalEvaluador/<%= datospersona[0].idpersona%>">Conservación</a>
-                        <a class="collapse-item" href="/PrincipalEvaluador/<%= datospersona[0].idpersona%>">Genética</a>
+
+                <!-- categorias  -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                        aria-expanded="true" aria-controls="collapseTwo">
+                        <i class="fas fa-fw fa-cog"></i>
+                        <span>CATEGORÍAS</span>
+                    </a>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <button type="submit" class="btn btn-light btn-user btn-block" name="animales"
+                                value="1">Animales</button>
+                            <button type="submit" class="btn btn-light btn-user btn-block" name="plantas"
+                                value="1">Plantas</button>
+                            <button type="submit" class="btn btn-light btn-user btn-block" name="botanica"
+                                value="1">Botánica</button>
+                            <button type="submit" class="btn btn-light btn-user btn-block" name="zoologia"
+                                value="1">Zoología</button>
+                            <button type="submit" class="btn btn-light btn-user btn-block" name="ecologia"
+                                value="1">Ecología</button>
+                            <button type="submit" class="btn btn-light btn-user btn-block" name="conservacion"
+                                value="1">Conservación</button>
+                            <button type="submit" class="btn btn-light btn-user btn-block" name="genetica"
+                                value="1">Genética</button>
+                        </div>
                     </div>
-                </div>
-            </li>
+                </li>
+            </form>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -162,7 +169,7 @@
             </div>
 
             <div>
-                <form method="POST" action="/EvaluarDocumento">
+                <form method="POST" action="/EvaluarDocumento/<%= datospersona[0].idpersona%>">
                     <div class=" row2">
 
                         <div class="form-group col-md-6">
@@ -180,7 +187,7 @@
                         <div class="form-group col-md-6">
                             <center>
                                 <br>
-                                <select class="custom-select custom-select-sm" name="estructura">
+                                <select class="custom-select custom-select-sm" name="criterio1">
                                     <option selected>Calificación</option>
                                     <option value="1">1</option>
                                     <option value="1.5">1.5</option>
@@ -194,7 +201,7 @@
                                 </select>
                                 </br>
                                 <br>
-                                <select class="custom-select custom-select-sm" name="tematica">
+                                <select class="custom-select custom-select-sm" name="criterio2">
                                     <option selected>Calificación</option>
                                     <option value="1">1</option>
                                     <option value="1.5">1.5</option>
@@ -208,7 +215,7 @@
                                 </select>
                                 </br>
                                 <br>
-                                <select class="custom-select custom-select-sm" name="contenido">
+                                <select class="custom-select custom-select-sm" name="criterio3">
                                     <option selected>Calificación</option>
                                     <option value="1">1</option>
                                     <option value="1.5">1.5</option>
@@ -222,7 +229,7 @@
                                 </select>
                                 </br>
                                 <br>
-                                <select class="custom-select custom-select-sm" name="citas">
+                                <select class="custom-select custom-select-sm" name="criterio4">
                                     <option selected>Calificación</option>
                                     <option value="1">1</option>
                                     <option value="1.5">1.5</option>
@@ -236,7 +243,7 @@
                                 </select>
                                 </br>
                                 <br>
-                                <select class="custom-select custom-select-sm" name="calidad">
+                                <select class="custom-select custom-select-sm" name="criterio5">
                                     <option selected>Calificación</option>
                                     <option value="1">1</option>
                                     <option value="1.5">1.5</option>
@@ -250,7 +257,7 @@
                                 </select>
                                 </br>
                                 <br>
-                                <select class="custom-select custom-select-sm" name="coherencia">
+                                <select class="custom-select custom-select-sm" name="criterio6">
                                     <option selected>Calificación</option>
                                     <option value="1">1</option>
                                     <option value="1.5">1.5</option>
@@ -274,7 +281,12 @@
 
                     <div>
                         <center>
-                            <button type="button" class="btn btn-primary">Guardar evaluación</button>
+                            <% documento.forEach(element => { %>
+                            <div>
+                                <button type="submit" class="btn btn-primary" name="documentoid"
+                                    value="<%= element['iddocumento']%>">Guardar evaluación</button>
+                            </div>
+                            <% }); %>
                         </center>
                     </div>
 

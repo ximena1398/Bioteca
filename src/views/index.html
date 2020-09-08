@@ -202,11 +202,11 @@
 
         </nav>
 
-        <!-- Contenedor principal -->
+        <!-- Contenedor principal (FOTO RIO Y LOGO) -->
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <% if(typeof datospersona == 'undefined'){ %>
+          <% if(typeof datospersona == 'undefined' && typeof bool == 'undefined'){ %>
           <center>
             <div class="">
               <img src="http://imgfz.com/i/GBESMT6.png" width="450"
@@ -226,38 +226,179 @@
 
           </p>
           <% } %>
-          <!-- Content Column -->
+          <!-- Content Column TODOS LOS DOCUMENTOS APROBADOS-->
 
-
+          <% if(typeof bool == 'undefined' && typeof datos != 'undefined'){ %>
           <!-- Color System -->
           <div class="row">
             <% datos.forEach(element => { %>
             <div class="col-lg-3 mb-6">
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <a target="_blank" rel="nofollow" href="/infodocumentoout"><%= element['titulo']%>
-                  </a>
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                      <% if(typeof datospersona == 'undefined'){ %>
+                        <form method="POST" action="/infodocumento">
+                          <% } else{%>  
+                            <form method="POST" action="/infodocumentoadmin/<%= datospersona[0].idpersona%>">
+                            <% }%> 
+                          <button type="submit" class="btn btn-success btn-user btn-block"
+                                name="documento" value="<%= element['iddocumento']%>""><%= element['titulo']%></button>
+                            <!--<a target=" _blank" rel="nofollow" type="submit" name="documento"
+                                href=""><%= element['titulo']%>
+                                </a>-->
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
+                                src="https://biodiversidadsah.files.wordpress.com/2011/04/biologia.jpg"
+                                alt="">
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                  <div class="text-center">
-                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                      src="https://biodiversidadsah.files.wordpress.com/2011/04/biologia.jpg" alt="">
-                  </div>
-                </div>
-              </div>
             </div>
             <% }); %>
+        </div>
+        <% }%>
+        
+        </div>
+        <% if(typeof bool != 'undefined' && typeof datos != 'undefined'){ %>
+        <!--Mostrar Documento MOSTRAR DOCUMENTO SELECCIONADO-->
+        <div class="row">
+
+          <!-- Content Column -->
+          <div class="col-lg-6 mb-4">
+              <center>
+                  <!-- Contenedor documento -->
+                  <div class="container-fluid">
+
+                      <div class="row">
+
+                          <div class="col-lg-10 mb-15">
+                              <div class="card shadow mb-4">
+                                  <div class="card-body">
+                                      <div>
+                                          <img id="ImagenParaDescargar" class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
+                                              src="https://biodiversidadsah.files.wordpress.com/2011/04/biologia.jpg"
+                                              alt="">
+                                      </div>
+                                  </div>
+                              </div>
+
+                          </div>
+
+                      </div>
+                      <div class="card-footer py-3">
+                          <button type="button" onclick="Visualizar()" class="btn btn-outline-info">Visualizar</a>
+                          <!--button type="button" onclick="Descargar()" class="btn btn-outline-info">Descargar</button-- >
+                      </div>
+                  </div>
+              </center>
           </div>
 
-        </div>
+          <div class="col-lg-6 mb-4">
+              <div class="row">
+                  <% datos.forEach(element => { %>
+                  <!-- Page Heading -->
+                  <div>
+                      <h1 id="TituloParaDescargar"><%= element['titulo']%></h1>
+                      <br>
+                      <h4 class="h4 mb-0 text-gray-800">Autor</h4></br>
+                      <br>
+                      <h4 class="h4 mb-0 text-gray-800">Descripción</h4></br>
+                      <h4><%= element['descripcion']%></h4>
+                  </div>
+                  <% }); %>
+              </div>
+          </div>
+      </div>
+      <% }%>
+      
 
+      <!--SUBIR ARCHIVO-->
+      <% if(typeof boolsubir != 'undefined'){ %>
+      <div>
+        <form id="FormSubir" method="POST" action="/subirDocumento/<%= datospersona[0].idpersona%>" onsubmit="return false">
+            <div class="row2">
+                <div id="DivForm" class="form-group col-md-6">
+                    <label for="inputEmail4">Título*</label>
+                    <input disabled type="text" class="form-control form-control-user" id="Titulo" name="titulo"
+                        value="  ">
+
+                    <br><label for="inputEmail4">Descripción*</label></br>
+                    <input disabled type="text" class="form-control form-control-user" id="Descripcion" value=""
+                        name="descripcion">
+
+                        <br><label for="inputEmail4">Autores*</label></br>
+                    
+                        <input type="checkbox" onchange="AgregarAutorInput()" id="Agregador" disabled>+</input>
+                        <input id="ContadorAutores" onclick="" type="hidden" name=contador>
+
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Fecha Publicacion*</label>
+                    <input disabled type="date" class="form-control form-control-user" placeholder="Fecha Publicacion"
+                        id="FechaPublicacion" name="fecha">
+                    <br>
+                    <select disabled class="custom-select custom-select-sm" id="Categorias" name="categoria">
+                        <option selected>Categoría</option>
+                        <option value="1">Animales</option>
+                        <option value="2">Plantas</option>
+                        <option value="3">Botánica</option>
+                        <option value="4">Zoología</option>
+                        <option value="5">Ecología</option>
+                        <option value="6">Conservación</option>
+                        <option value="7">Genética</option>
+                        <option value="8">Amazonia Colombiana</option>
+                    </select>
+                    </br>
+                    <br>
+                    <select disabled class="custom-select custom-select-sm" id="Tipos" name="tipo">
+                        <option selected>Tipo de documento</option>
+                        <option value="1">Libro</option>
+                        <option value="2">Artículo</option>
+                        <option value="3">Revista</option>
+                    </select>
+                    </br>
+                </div>
+
+            </div>
+            <div>
+                <center>
+                    <button disabled id="Cargar" onclick="Firebase()" type="submit" class="btn btn-primary">Subir archivo</button>
+                </center>
+            </div>
+            <h1></h1>
+        </form>
+
+        <div class="row3">
+            <form>
+                <div class="form-group">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="customFileLang" lang="es">
+                        <label class="custom-file-label" for="customFileLang" id="LabelArchivo">Debe seleccionar un Archivo primero</label>
+                        <center>
+                        <progress id="uploader" value="0" max="100" min='0'></progress>
+                        </center>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <% }%>
+
+
+
+
+
+
+        
+    </div>
+  </div>
       </div>
 
     </div>
 
   </div>
 
-  </div>
   <!-- End of Page Wrapper -->
   <footer class="sticky-footer bg-white">
     <div class="container my-auto">
@@ -300,13 +441,42 @@
   <!-- Page level plugins -->
   <script src="../css/vendor/chart.js/Chart.min.js"></script>
 
+  
   <!-- Page level custom scripts -->
   <script src="js/demo/chart-area-demo.js"></script>
   <script src="js/demo/chart-pie-demo.js"></script>
 
+  <!-- The core Firebase JS SDK is always required and must be listed first --> 
   <!-- The core Firebase JS SDK is always required and must be listed first -->
-  <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
 
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+     <script src="../css/js/postular.js"></script>
+
+     <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.2/firebase-analytics.js"></script>
+
+    <!--Cloud Firestore-->
+    <script src="https://www.gstatic.com/firebasejs/6.3.4/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-auth.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyC7rFd7iqWu-w_DD51AihdP4IOLbnHIbYU",
+    authDomain: "bioteca-4645c.firebaseapp.com",
+    databaseURL: "https://bioteca-4645c.firebaseio.com",
+    projectId: "bioteca-4645c",
+    storageBucket: "bioteca-4645c.appspot.com",
+    messagingSenderId: "68695445537",
+    appId: "1:68695445537:web:e906ddc54407fbd1985360",
+    measurementId: "G-30E3QJVZFP"
+  };
+  // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+</script>
+<script src="/__/firebase/init.js"></script>
 </body>
 
 </html>

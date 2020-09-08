@@ -18,7 +18,10 @@ const consulta = async (req, res) => {
     const response = await pool.query('SELECT * FROM persona');
     return response.rows;
 };
-
+const consultaIdDocumento = async (id) => {
+    const documento = await pool.query('SELECT * FROM documento WHERE iddocumento=$1', [id]);
+    return documento.rows;
+};
 const consultaRepetida = async (correoc) => {
     const response = await pool.query('SELECT * FROM persona where correo = $1', [correoc]);
     return response.rows;
@@ -49,7 +52,7 @@ const consultaUsuarioDocumentoId = async (idpersona) => {
 //crud persona
 
 const RegistrarPersona = async (req, res) => {
-    const { nombres, apellidos, correo, contrasena } = req.body;
+    const { nombres, apellidos, correo, contrasena} = req.body;
     const validarcorreo = await consultaRepetida(correo);
     console.log("holaaa");
     if (validarcorreo == 0) {
@@ -174,10 +177,16 @@ const RegistrarDocumento = async (req, res) => {
 const SubirDocumento = async (req, res) => {
     const id = req.params.id;
     const persona = await consultaId(id);
-    const { titulo, fecha, descripcion, tipo,contador} = req.body;
-    
+    const { titulo, fecha, descripcion, tipo,NombreAutores1,ApellidoAutores1,contador} = req.body;
     const response = await pool.query('INSERT INTO documento (titulo, fecha_publicacion, descripcion, tipo_idtipo, idpersona) VALUES ($1, $2, $3, $4, $5)', [titulo, fecha, descripcion, tipo, id]);
-    res.render('subirarchivo.html', { datospersona: persona });
+    const buscarautor = await pool.query('SELECT * FROM autor WHERE nombres_autor=$1 and apellidos_autor=$2', [NombreAutores1.trim().toLowerCase(),ApellidoAutores1.trim().toLowerCase()]);
+    if (buscarautor.rows==0){  
+        await pool.query('INSERT INTO autor (nombres_autor, apellidos_autor) VALUES ($1, $2)', [NombreAutores1.trim().toLowerCase(),ApellidoAutores1.trim().toLowerCase()]);
+    }
+    const buscardocumento = await pool.query('SELECT * FROM documento WHERE titulo=$1 and fecha_publicacion=$2 and descripcion=$3 and tipo_idtipo=$4', [titulo, fecha, descripcion, tipo]);
+    const buscarautorr = await pool.query('SELECT * FROM autor WHERE nombres_autor=$1 and apellidos_autor=$2', [NombreAutores1.trim().toLowerCase(),ApellidoAutores1.trim().toLowerCase()]);
+    await pool.query('INSERT INTO autoresdocumento (autor_idautor, documento_iddocumento, estado_autor) VALUES ($1, $2,$3)', [buscarautorr.rows[0].idautor,buscardocumento.rows[0].iddocumento,"Activo"]);
+    res.render('index.html', { datospersona: persona });
 };
 
 const postularDocumento = async (req, res) => {
@@ -197,20 +206,25 @@ const RevisarPostulaciones = async (req, res) => {
 
 const SubirArchivoEvaluador = async (req, res) => {
     const id = req.params.id;
+    const boolsubir=true;
     const persona = await consultaId(id);
-    res.render('subirarchivo.html', { datospersona: persona });
+    res.render('index.html', { datospersona: persona,boolsubir:boolsubir});
 };
 
 const InformacionDocumento = async (req, res) => {
-    const id = req.params.id;
-    const persona = await consultaId(id);
-    res.render('infodocumento.html', { datospersona: persona });
+    const { documento } = req.body;
+    const bool=true;
+    const infodocumento = await consultaIdDocumento(documento);
+    res.render('index.html', { datos: infodocumento, bool:bool });
 };
 
 const InformacionDocumentoEvaluador = async (req, res) => {
+    const { documento } = req.body;
     const id = req.params.id;
+    const bool=true;
     const persona = await consultaId(id);
-    res.render('infodocumentoadmin.html', { datospersona: persona });
+    const infodocumento = await consultaIdDocumento(documento);
+    res.render('index.html', { datospersona: persona, datos: infodocumento,bool:bool });
 };
 
 const InformacionDocumentoOut =  (req, res) => {
@@ -218,20 +232,119 @@ const InformacionDocumentoOut =  (req, res) => {
 };
 
 const Evaluar = async (req, res) => {
+    const { documentoid } = req.body;
+    console.log('shi ' + documentoid);
     const id = req.params.id;
-    console.log('Holaaaa 1');
+    const response = await pool.query('SELECT * FROM documento WHERE iddocumento=$1', [documentoid]);
+    console.log(response.rows);
     const persona = await consultaId(id);
-    res.render('evaluacion.html', { datospersona: persona });
+    const DocumentoUsuario = await consultaUsuarioDocumento();
+    res.render('evaluacion.html', { datos: DocumentoUsuario, datospersona: persona, documento: response.rows });
+};
+
+const InsertarEvaluacion = async (fecha, nota, comentarios, iddocumento, estado) => {
+    const evaluacion = await pool.query('INSERT INTO EVALUACION (fecha_evaluacion, nota_final, comentarios, iddocumento, estado_idestado) VALUES ($1, $2, $3, $4, $5)', [fecha, nota, comentarios, iddocumento, estado]);
+    return evaluacion.rows;
+};
+
+const evaluacion = async (req, res) => {
+    const evaluacion = await pool.query('SELECT * FROM EVALUACION');
+    return evaluacion.rows;
+};
+
+const Promedio = async (idevaluacion) => {
+    const prom = await pool.query('select avg(notas) from tipocriteriosevaluacion where evaluacion_idevaluacion=$1', [idevaluacion]);
+    return prom.rows;
+};
+
+const NotaFinal = async (idevaluacion, nota) => {
+    const notaf = await pool.query('update evaluacion set nota_final=$2 where idevaluacion=$1', [idevaluacion, nota]);
+    return notaf.rows;
+};
+
+const TipoDocumento = async (tipo) => {
+    const documento = await pool.query('SELECT * FROM documento WHERE tipo_idtipo=$1', [tipo]);
+    return documento.rows;
+};
+
+const ClasificacionDocumento = async (clasificacion) => {
+    const documento = await pool.query('SELECT * FROM documento WHERE clasificacion_idclasificacion=$1', [clasificacion]);
+    return documento.rows;
 };
 
 const EvaluarDocumento = async (req, res) => {
-    const { estructura, tematica, contenido, citas, calidad, coherencia, comentarios } = req.body;
-    const response = await pool.query('INSERT INTO evaluacion (fechaevaluacion, notafinal, iddocumento, idpersona) VALUES ($1, $2, $3, $4, $5)', [titulo, fecha, descripcion, tipo, id]);
-    const id = req.params.id;
-    const persona = await consultaId(id);
-    res.render('evaluacion.html', { datospersona: persona });
+    const { documentoid, criterio1, criterio2, criterio3, criterio4, criterio5, criterio6, comentarios } = req.body;
+    var fecha = new Date();
+    const idpersona = req.params.idpersona;
+    console.log(idpersona);
+    const persona = await consultaId(idpersona);
+    const DocumentoUsuario = await consultaUsuarioDocumento();
+    const consdocumento = await consultaIdDocumento(documentoid);
+    console.log(consdocumento[0].tipo_idtipo);
+    const Insertarevaluacion = await InsertarEvaluacion(fecha.toUTCString(), 0, comentarios, documentoid, 1);
+    const evaluacion2 = await evaluacion();
+    console.log(evaluacion2[evaluacion2.length-1].idevaluacion);
+    if (evaluacion2[evaluacion2.length-1].idevaluacion != null) {
+      const response1 = await pool.query('INSERT INTO TIPOCRITERIOSEVALUACION (evaluacion_idevaluacion, tipo_idtipo, criterios_idcriterios, notas) VALUES ($1, $2, $3, $4)', [evaluacion2[evaluacion2.length-1].idevaluacion, consdocumento[0].tipo_idtipo, 1, criterio1]);
+      const response2 = await pool.query('INSERT INTO TIPOCRITERIOSEVALUACION (evaluacion_idevaluacion, tipo_idtipo, criterios_idcriterios, notas) VALUES ($1, $2, $3, $4)', [evaluacion2[evaluacion2.length-1].idevaluacion, consdocumento[0].tipo_idtipo, 2, criterio2]);
+      const response3 = await pool.query('INSERT INTO TIPOCRITERIOSEVALUACION (evaluacion_idevaluacion, tipo_idtipo, criterios_idcriterios, notas) VALUES ($1, $2, $3, $4)', [evaluacion2[evaluacion2.length-1].idevaluacion, consdocumento[0].tipo_idtipo, 3, criterio3]);
+      const response4 = await pool.query('INSERT INTO TIPOCRITERIOSEVALUACION (evaluacion_idevaluacion, tipo_idtipo, criterios_idcriterios, notas) VALUES ($1, $2, $3, $4)', [evaluacion2[evaluacion2.length-1].idevaluacion, consdocumento[0].tipo_idtipo, 4, criterio4]);
+      const response5 = await pool.query('INSERT INTO TIPOCRITERIOSEVALUACION (evaluacion_idevaluacion, tipo_idtipo, criterios_idcriterios, notas) VALUES ($1, $2, $3, $4)', [evaluacion2[evaluacion2.length-1].idevaluacion, consdocumento[0].tipo_idtipo, 5, criterio5]);
+      const response6 = await pool.query('INSERT INTO TIPOCRITERIOSEVALUACION (evaluacion_idevaluacion, tipo_idtipo, criterios_idcriterios, notas) VALUES ($1, $2, $3, $4)', [evaluacion2[evaluacion2.length-1].idevaluacion, consdocumento[0].tipo_idtipo, 6, criterio6]);
+      const promedio = await Promedio(evaluacion2[evaluacion2.length-1].idevaluacion);
+      const nota = await NotaFinal(evaluacion2[evaluacion2.length-1].idevaluacion, promedio[0].avg);
+    }
+    res.render('evaluacion.html', { datos: DocumentoUsuario, datospersona: persona, documento: consdocumento });
 };
 
+const clasificacion = async (req, res) => {
+    const { libros, revistas, articulos, animales, plantas, botanica, zoologia, ecologia, conservacion, genetica } = req.body;
+    const id = req.params.id;
+    const response = await consultaId(id);
+    var tipo = 0;
+    var clasifi = 0;
+    if (libros) {
+        tipo = 1;
+        const documentos = await TipoDocumento(tipo);
+        res.render('PrincipalEvaluador.html', { datospersona: response, datos: documentos });
+    } else if (revistas) {
+        tipo = 2;
+        const documentos = await TipoDocumento(tipo);
+        res.render('PrincipalEvaluador.html', { datospersona: response, datos: documentos });
+    } else if (articulos) {
+        tipo = 3;
+        const documentos = await TipoDocumento(tipo);
+        res.render('PrincipalEvaluador.html', { datospersona: response, datos: documentos });
+    } else if (animales) {
+        clasifi = 1;
+        const documentos = await ClasificacionDocumento(clasifi);
+        res.render('PrincipalEvaluador.html', { datospersona: response, datos: documentos });
+    } else if (plantas) {
+        clasifi = 2;
+        const documentos = await ClasificacionDocumento(clasifi);
+        res.render('PrincipalEvaluador.html', { datospersona: response, datos: documentos });
+    } else if (botanica) {
+        clasifi = 3;
+        const documentos = await ClasificacionDocumento(clasifi);
+        res.render('PrincipalEvaluador.html', { datospersona: response, datos: documentos });
+    } else if (zoologia) {
+        clasifi = 4;
+        const documentos = await ClasificacionDocumento(clasifi);
+        res.render('PrincipalEvaluador.html', { datospersona: response, datos: documentos });
+    } else if (ecologia) {
+        clasifi = 5;
+        const documentos = await ClasificacionDocumento(clasifi);
+        res.render('PrincipalEvaluador.html', { datospersona: response, datos: documentos });
+    } else if (conservacion) {
+        clasifi = 6;
+        const documentos = await ClasificacionDocumento(clasifi);
+        res.render('PrincipalEvaluador.html', { datospersona: response, datos: documentos });
+    } else if (genetica) {
+        clasifi = 7;
+        const documentos = await ClasificacionDocumento(clasifi);
+        res.render('PrincipalEvaluador.html', { datospersona: response, datos: documentos });
+    }
+};
 
 //vistas
 
@@ -255,5 +368,5 @@ module.exports = {
     controller, session, UsuarioPrincipal, postularDocumento, InformacionDocumento, EvaluadorPrincipal,
     RevisarPostulaciones, SubirArchivoEvaluador, Evaluar, Registrar, OlvidasteContrasena, RegistrarPersona,
     RegistrarDocumento, getDocumento, IniciarSesion, BorrarPersona, actualizar, Actualizarpersona,
-    BorrarDocumento, SubirDocumento, EvaluarDocumento, InformacionDocumentoEvaluador, InformacionDocumentoOut
+    BorrarDocumento, SubirDocumento, EvaluarDocumento, InformacionDocumentoEvaluador, InformacionDocumentoOut, clasificacion
 };
