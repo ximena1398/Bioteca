@@ -42,19 +42,20 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Item inicio -->
-      <% if(typeof datospersona !== 'undefined'){ %>
-      <li class="nav-item active">
-        <a class="nav-link" href="/index/<%= datospersona[0].idpersona%>">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>INICIO</span></a>
-      </li>
-      <% }else if (typeof datospersona == 'undefined'){ %>
+      <% if(typeof datospersona == 'undefined'){ %>
         <li class="nav-item active">
           <a class="nav-link" href="/index">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>INICIO</span></a>
         </li>
+      <% }else{ %>
+      <li class="nav-item active">
+        <a class="nav-link" href="/index/<%= datospersona[0].idpersona%>">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>INICIO</span></a>
+      </li>
       <% } %>
+      
 
       <!-- Division -->
       
@@ -232,7 +233,7 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <% if(typeof datospersona == 'undefined' && typeof bool == 'undefined'){ %>
+          <% if(typeof datospersona == 'undefined' && typeof bool == 'undefined' && typeof boolevaluar == 'undefined' && typeof boolpostulaciones == 'undefined'){ %>
           <center>
             <div class="">
               <img src="http://imgfz.com/i/GBESMT6.png" width="450"
@@ -254,7 +255,7 @@
           <% } %>
           <!-- Content Column TODOS LOS DOCUMENTOS APROBADOS-->
 
-          <% if(typeof bool == 'undefined' && typeof datos != 'undefined'){ %>
+          <% if(typeof boolevaluar == 'undefined' && typeof bool == 'undefined' && typeof datos != 'undefined' && typeof boolpostulaciones=='undefined'){ %>
           <!-- Color System -->
           <div class="row">
             <% datos.forEach(element => { %>
@@ -287,7 +288,7 @@
         <% }%>
         
         </div>
-        <% if(typeof bool != 'undefined' && typeof datos != 'undefined'){ %>
+        <% if(typeof boolevaluar=='undefined' && typeof bool != 'undefined' && typeof datos != 'undefined' && typeof boolpostulaciones=='undefined'){ %>
         <!--Mostrar Documento MOSTRAR DOCUMENTO SELECCIONADO-->
         <div class="row">
 
@@ -341,7 +342,7 @@
       
 
       <!--SUBIR ARCHIVO-->
-      <% if(typeof boolsubir != 'undefined'){ %>
+      <% if(typeof boolevaluar=='undefined' && typeof boolsubir != 'undefined' && typeof boolpostulaciones=='undefined'){ %>
       <div>
         <form id="FormSubir" method="POST" action="/subirDocumento/<%= datospersona[0].idpersona%>" onsubmit="return false">
             <div class="row2">
@@ -411,6 +412,209 @@
         </div>
         <% }%>
 
+         <!--EVALUACION-->
+         <% if(typeof boolevaluar!='undefined' && typeof boolsubir == 'undefined' && typeof bool=='undefined' && typeof boolpostulaciones=='undefined'){ %>
+          <div>
+            <form method="POST" action="/EvaluarDocumento/<%= datospersona[0].idpersona%>">
+                <div class=" row2">
+  
+                    <div class="form-group col-md-6">
+                        <center>
+                            <br><label for="inputEmail4">Estructura documento en normas APA: </label></br>
+                            <br><label for="inputEmail4">Temática: </label></br>
+                            <br><label for="inputEmail4">Contenido científico: </label></br>
+                            <br><label for="inputEmail4">Citas y bibliografía: </label></br>
+                            <br><label for="inputEmail4">Calidad de contenido: </label></br>
+                            <br><label for="inputEmail4">Coherencia con la temática: </label></br>
+                            <br><label for="inputEmail4">Comentarios: </label></br>
+                        </center>
+                    </div>
+  
+                    <div class="form-group col-md-6">
+                        <center>
+                            <br>
+                            <select class="custom-select custom-select-sm" name="criterio1">
+                                <option selected>Calificación</option>
+                                <option value="1">1</option>
+                                <option value="1.5">1.5</option>
+                                <option value="2">2</option>
+                                <option value="2.5">2.5</option>
+                                <option value="3">3</option>
+                                <option value="3.5">3.5</option>
+                                <option value="4">4</option>
+                                <option value="4.5">4.5</option>
+                                <option value="5">5</option>
+                            </select>
+                            </br>
+                            <br>
+                            <select class="custom-select custom-select-sm" name="criterio2">
+                                <option selected>Calificación</option>
+                                <option value="1">1</option>
+                                <option value="1.5">1.5</option>
+                                <option value="2">2</option>
+                                <option value="2.5">2.5</option>
+                                <option value="3">3</option>
+                                <option value="3.5">3.5</option>
+                                <option value="4">4</option>
+                                <option value="4.5">4.5</option>
+                                <option value="5">5</option>
+                            </select>
+                            </br>
+                            <br>
+                            <select class="custom-select custom-select-sm" name="criterio3">
+                                <option selected>Calificación</option>
+                                <option value="1">1</option>
+                                <option value="1.5">1.5</option>
+                                <option value="2">2</option>
+                                <option value="2.5">2.5</option>
+                                <option value="3">3</option>
+                                <option value="3.5">3.5</option>
+                                <option value="4">4</option>
+                                <option value="4.5">4.5</option>
+                                <option value="5">5</option>
+                            </select>
+                            </br>
+                            <br>
+                            <select class="custom-select custom-select-sm" name="criterio4">
+                                <option selected>Calificación</option>
+                                <option value="1">1</option>
+                                <option value="1.5">1.5</option>
+                                <option value="2">2</option>
+                                <option value="2.5">2.5</option>
+                                <option value="3">3</option>
+                                <option value="3.5">3.5</option>
+                                <option value="4">4</option>
+                                <option value="4.5">4.5</option>
+                                <option value="5">5</option>
+                            </select>
+                            </br>
+                            <br>
+                            <select class="custom-select custom-select-sm" name="criterio5">
+                                <option selected>Calificación</option>
+                                <option value="1">1</option>
+                                <option value="1.5">1.5</option>
+                                <option value="2">2</option>
+                                <option value="2.5">2.5</option>
+                                <option value="3">3</option>
+                                <option value="3.5">3.5</option>
+                                <option value="4">4</option>
+                                <option value="4.5">4.5</option>
+                                <option value="5">5</option>
+                            </select>
+                            </br>
+                            <br>
+                            <select class="custom-select custom-select-sm" name="criterio6">
+                                <option selected>Calificación</option>
+                                <option value="1">1</option>
+                                <option value="1.5">1.5</option>
+                                <option value="2">2</option>
+                                <option value="2.5">2.5</option>
+                                <option value="3">3</option>
+                                <option value="3.5">3.5</option>
+                                <option value="4">4</option>
+                                <option value="4.5">4.5</option>
+                                <option value="5">5</option>
+                            </select>
+                            </br>
+                            <br>
+                            <div class="form-group">
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                    name="comentarios"></textarea>
+                            </div>
+                    </div>
+                    </center>
+                </div>
+  
+                <div>
+                    <center>
+                        <% documentoevaluado.forEach(element => { %>
+                          <input type="text">
+                        <div>
+                            <button type="submit" class="btn btn-primary" name="documentoid"
+                                value="<%= element['iddocumento']%>">Guardar evaluación</button>
+                        </div>
+                        <% }); %>
+                    </center>
+                </div>
+  
+            </form>
+  
+  
+        </div>
+        <% }%>
+
+
+       <!--POSTULACIONES-->
+      <% if(typeof boolpostulaciones!='undefined' && typeof boolevaluar=='undefined' && typeof boolsubir == 'undefined' && typeof bool=='undefined'){ %>
+        <div class="container-fluid">
+  
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">Documentos postulados</h1>
+  
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Postulaciones</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th></th>
+                      <th>Nombre documento</th>
+                      <th>usuario</th>
+                      <th>Opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% datos.forEach(element => { %>
+                    <tr>
+                      <td>
+                        <a href="/evaluacion/<%= datospersona[0].idpersona%>" class="row2">
+                          <button type="button" class="btn btn-warning">Evaluar</button>
+                        </a>
+                      <td>
+                        <form method="POST" action="/infodocumentoadmin/<%= datospersona[0].idpersona%>">
+                        <button type="submit" class="btn btn-success btn-user btn-block"
+                              name="documento" value="<%= element['iddocumento']%>"">Visualizar</button>
+                          <!--<a target=" _blank" rel="nofollow" type="submit" name="documento"
+                              href=""><%= element['titulo']%>
+                              </a>-->
+                      </form>
+                      </td>
+                      </td>
+                      <td>
+                        <%= element['titulo']%>
+                      </td>
+                      <td>
+                        <%= element['correo']%>
+                      </td>
+                      <td>
+  
+                        <% datospersona.forEach(element => { %>
+                        <a class="btn btn-danger"
+                          href="/BorrarDocumento/<%= element['iddocumento']%>/<%= element['idpersona']%>">Borrar</a>
+                        <% }); %>
+  
+                        <!--
+                        <button type="button" class="btn btn-success">Almacenar</button>
+          
+                        <a class="btn btn-danger"
+                          href="/BorrarDocumento/<%= element['iddocumento']%>">Borrar</a>  
+                           -->
+                      </td>
+                    </tr>
+                    <% }); %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+        <% }%>
 
 
 

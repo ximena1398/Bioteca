@@ -159,7 +159,7 @@ const EvaluadorPrincipal = async (req, res) => {
 
 const controller = async (req, res) => {
     const response2 = await consultaDocumento();
-    res.render('index.html');
+    res.render('index.html',{datos:response2});
 };
 
 const inicio = async (req, res) => {
@@ -169,7 +169,6 @@ const inicio = async (req, res) => {
     const response = await consultaId(id);
     res.render('index.html', { datospersona: response, datos: response2 });
 };
-
 //documento
 const consultaDocumento = async (req, res) => {
     const response = await pool.query('SELECT * FROM documento where estado_idestado=2');
@@ -227,10 +226,11 @@ const postularDocumento = async (req, res) => {
 
 
 const RevisarPostulaciones = async (req, res) => {
+    const boolpostulaciones=true;
     const id = req.params.id;
     const persona = await consultaId(id);
-    const response = await consultaPostulaciones();
-    res.render('Postulaciones.html', { datos: response, datospersona: persona });
+    const response = await consultaUsuarioDocumento();
+    res.render('index.html', {boolpostulaciones:boolpostulaciones, datos: response, datospersona: persona });
 };
 
 
@@ -262,6 +262,7 @@ const InformacionDocumentoOut = (req, res) => {
 };
 
 const Evaluar = async (req, res) => {
+    const boolevaluar=true;
     const { documentoid } = req.body;
     console.log('shi ' + documentoid);
     const id = req.params.id;
@@ -269,7 +270,7 @@ const Evaluar = async (req, res) => {
     console.log(response.rows);
     const persona = await consultaId(id);
     const DocumentoUsuario = await consultaUsuarioDocumento();
-    res.render('evaluacion.html', { datos: DocumentoUsuario, datospersona: persona, documento: response.rows });
+    res.render('evaluacion.html', {boolevaluar:boolevaluar, datos: DocumentoUsuario, datospersona: persona, documento: response.rows });
 };
 
 const InsertarEvaluacion = async (fecha, nota, comentarios, iddocumento, estado) => {
@@ -278,7 +279,7 @@ const InsertarEvaluacion = async (fecha, nota, comentarios, iddocumento, estado)
 };
 
 const evaluacion = async (req, res) => {
-    const evaluacion = await pool.query('SELECT * FROM EVALUACION');
+    const evaluacion = await pool.query('SELECT * FROM EVALUACION order by idevaluacion asc');
     return evaluacion.rows;
 };
 
@@ -352,7 +353,7 @@ const EvaluarDocumento = async (req, res) => {
             const ActualizarEstado = await UpdateEstado(estado[estado.length - 1].iddocumento, estadoActualizado);
         }
     }
-    res.render('evaluacion.html', { datos: DocumentoUsuario, datospersona: persona, documento: consdocumento });
+    res.render('index.html', { datos: DocumentoUsuario, datospersona: persona, documento: consdocumento });
 };
 
 const clasificacion = async (req, res) => {
@@ -404,6 +405,54 @@ const clasificacion = async (req, res) => {
     }
 };
 
+const clasificacionSin = async (req, res) => {
+    const { libros, revistas, articulos, animales, plantas, botanica, zoologia, ecologia, conservacion, genetica } = req.body;
+    const id = req.params.id;
+    const response = await consultaId(id);
+    var tipo = 0;
+    var clasifi = 0;
+    if (libros) {
+        tipo = 1;
+        const documentos = await TipoDocumento(tipo);
+        res.render('index.html', {datos: documentos });
+    } else if (revistas) {
+        tipo = 2;
+        const documentos = await TipoDocumento(tipo);
+        res.render('index.html', {datos: documentos });
+    } else if (articulos) {
+        tipo = 3;
+        const documentos = await TipoDocumento(tipo);
+        res.render('index.html', { datos: documentos });
+    } else if (animales) {
+        clasifi = 1;
+        const documentos = await ClasificacionDocumento(clasifi);
+        res.render('index.html', {datos: documentos });
+    } else if (plantas) {
+        clasifi = 2;
+        const documentos = await ClasificacionDocumento(clasifi);
+        res.render('index.html', {datos: documentos });
+    } else if (botanica) {
+        clasifi = 3;
+        const documentos = await ClasificacionDocumento(clasifi);
+        res.render('index.html', {datos: documentos });
+    } else if (zoologia) {
+        clasifi = 4;
+        const documentos = await ClasificacionDocumento(clasifi);
+        res.render('index.html', {datos: documentos });
+    } else if (ecologia) {
+        clasifi = 5;
+        const documentos = await ClasificacionDocumento(clasifi);
+        res.render('index.html', {datos: documentos });
+    } else if (conservacion) {
+        clasifi = 6;
+        const documentos = await ClasificacionDocumento(clasifi);
+        res.render('index.html', {datos: documentos });
+    } else if (genetica) {
+        clasifi = 7;
+        const documentos = await ClasificacionDocumento(clasifi);
+        res.render('index.html', {datos: documentos });
+    }
+};
 //vistas
 
 
@@ -426,5 +475,5 @@ module.exports = {
     controller, session, UsuarioPrincipal, postularDocumento, InformacionDocumento, EvaluadorPrincipal,
     RevisarPostulaciones, SubirArchivoEvaluador, Evaluar, Registrar, OlvidasteContrasena, RegistrarPersona,
     RegistrarDocumento, getDocumento, IniciarSesion, BorrarPersona, actualizar, Actualizarpersona,
-    BorrarDocumento, SubirDocumento, EvaluarDocumento, InformacionDocumentoEvaluador, InformacionDocumentoOut, clasificacion, inicio, Buscar
+    BorrarDocumento, SubirDocumento, EvaluarDocumento, InformacionDocumentoEvaluador, InformacionDocumentoOut, clasificacion,clasificacionSin, inicio, Buscar
 };

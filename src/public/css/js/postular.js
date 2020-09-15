@@ -13,6 +13,7 @@
     var DivForm=document.getElementById('DivForm');
     var Agregador=document.getElementById("Agregador");
     var FormSubir=document.getElementById("FormSubir");
+    
     var c=0;
     
 
@@ -36,7 +37,6 @@
     task.on('state_changed',
     function progress(snapshot){
         var p=(snapshot.bytesTransferred/snapshot.totalBytes)*100;
-        alert(p)
         uploader.value=p;
         if(p==100){
             FormSubir.submit();
@@ -75,6 +75,23 @@
       });
   }
 
+  function VisualizarPostulaciones(){
+    var NombreDocumentoPostulaciones=document.getElementById("NombreDocumentoPostulaciones");
+    var storageRef=firebase.storage().ref().child(NombreDocumentoPostulaciones.value);
+    storageRef.getDownloadURL().then(function(url) {
+      var win = window.open(url, '_blank');
+      if (win) {
+         win.focus();
+      } else {
+        alert('Please allow popups for this website');
+}
+    }).catch(function(error) {
+      alert(error.code)
+      // Handle any errors
+    });
+}
+
+  
     function AgregarAutorInput(){
         ContadorAutores.value=c
         c++;
