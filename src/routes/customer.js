@@ -6,12 +6,13 @@ const router = Router();
 const {controller, session, UsuarioPrincipal, postularDocumento, InformacionDocumento, EvaluadorPrincipal,
      RevisarPostulaciones, SubirArchivoEvaluador, Evaluar, Registrar, OlvidasteContrasena, RegistrarPersona, RegistrarDocumento, 
      getDocumento, IniciarSesion, BorrarPersona, actualizar, Actualizarpersona, BorrarDocumento, SubirDocumento, EvaluarDocumento,
-     InformacionDocumentoEvaluador, InformacionDocumentoOut, clasificacion, inicio}= require('../controllers/index');
+     InformacionDocumentoEvaluador, InformacionDocumentoOut, clasificacion, inicio, Buscar}= require('../controllers/index');
 
 //rutas vistas
 router.get('/', controller);
 router.get('/login', session);
 router.get('/index/:id', inicio);
+router.get('/index', inicio);
 
 //router.get('/mispostulacione', MisPostulaciones);
 router.get('/postular/:id', postularDocumento);
@@ -36,6 +37,7 @@ router.post('/PostularDocumento2/:id', RegistrarDocumento);
 router.post('/subirDocumento/:id', SubirDocumento);
 router.post('/IniciarSesion', IniciarSesion);
 router.post('/BorrarPersona/:idpersona', BorrarPersona);
+router.post('/Buscar/:id', BorrarPersona);
 router.get('/Actualizar/:idpersona', actualizar);
 router.post('/Actualizarpersona', Actualizarpersona);
 router.post('/BorrarDocumento/:idpersona', BorrarDocumento);

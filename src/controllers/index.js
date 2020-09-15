@@ -18,6 +18,7 @@ const consulta = async (req, res) => {
     const response = await pool.query('SELECT * FROM persona');
     return response.rows;
 };
+
 const consultaIdDocumento = async (id) => {
     const documento = await pool.query('SELECT * FROM documento WHERE iddocumento=$1', [id]);
     return documento.rows;
@@ -67,7 +68,20 @@ const RegistrarPersona = async (req, res) => {
     } else if (validarcorreo != 0) {
         res.render('RegistroUsuario.html');
     }
+};
 
+const BuscarTitulo = async (busqueda) => {
+    const response = await pool.query('SELECT * from documento where titulo=$1', [busqueda]);
+    return response.rows;
+};
+
+const Buscar = async (req, res) => {
+    const id = req.params.idpersona;
+    const response3 = await consultaId(id);
+    const {buscarTitulo} = req.body;
+    const titulo = await BuscarTitulo(buscarTitulo);
+
+    res.render('index.html', {datospersona: response3, datos: titulo});
 };
 
 const actualizar = async (req, res) => {
@@ -153,7 +167,7 @@ const inicio = async (req, res) => {
     const id = req.params.id;
     console.log(id);
     const response = await consultaId(id);
-    res.render('index.html', { datospersona: response2, datos: response2 });
+    res.render('index.html', { datospersona: response, datos: response2 });
 };
 
 //documento
@@ -412,5 +426,5 @@ module.exports = {
     controller, session, UsuarioPrincipal, postularDocumento, InformacionDocumento, EvaluadorPrincipal,
     RevisarPostulaciones, SubirArchivoEvaluador, Evaluar, Registrar, OlvidasteContrasena, RegistrarPersona,
     RegistrarDocumento, getDocumento, IniciarSesion, BorrarPersona, actualizar, Actualizarpersona,
-    BorrarDocumento, SubirDocumento, EvaluarDocumento, InformacionDocumentoEvaluador, InformacionDocumentoOut, clasificacion, inicio
+    BorrarDocumento, SubirDocumento, EvaluarDocumento, InformacionDocumentoEvaluador, InformacionDocumentoOut, clasificacion, inicio, Buscar
 };

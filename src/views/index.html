@@ -42,11 +42,19 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Item inicio -->
+      <% if(typeof datospersona !== 'undefined'){ %>
       <li class="nav-item active">
-        <a class="nav-link" href="">
+        <a class="nav-link" href="/index/<%= datospersona[0].idpersona%>">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>INICIO</span></a>
       </li>
+      <% }else if (typeof datospersona == 'undefined'){ %>
+        <li class="nav-item active">
+          <a class="nav-link" href="/index">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>INICIO</span></a>
+        </li>
+      <% } %>
 
       <!-- Division -->
       
