@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Descripción</title>
 
     <!-- Custom fonts for this template-->
     <link href="../css/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="http://imgfz.com/i/oLWDpq9.png"/>
 
 </head>
 
@@ -31,10 +32,8 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Nombre principal -->
-            <% if(typeof datospersona != 'undefined'){ %>
             <a class="sidebar-brand d-flex align-items-center justify-content-center"
                 href="/PrincipalEvaluador/<%= datospersona[0].idpersona%>">
-                <% } %>
                 <div class="sidebar-brand-icon">
                     <img src="http://imgfz.com/i/oLWDpq9.png" alt="holi" width="80" height="60" />
                 </div>
@@ -61,28 +60,25 @@
             </li>
             <!-- Division -->
             <hr class="sidebar-divider">
+            <form method="POST" action="/PrincipalEvaluador/<%= datospersona[0].idpersona%>">
+                <!-- item libros -->
+                <li class="nav-item">
+                    <button type="submit" class="btn btn-outline-info btn-user btn-block" name="libros"
+                        value="1">LIBROS</button>
+                </li>
 
+                <!-- item revistas -->
+                <li class="nav-item">
+                    <button type="submit" class="btn btn-outline-info btn-user btn-block" name="revistas"
+                        value="1">REVISTAS</button>
+                </li>
 
-            <!-- item libros -->
-            <li class="nav-item">
-                <a class="nav-link" href="/PrincipalEvaluador/<%= datospersona[0].idpersona%>">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>LIBROS</span></a>
-            </li>
-
-            <!-- item revistas -->
-            <li class="nav-item">
-                <a class="nav-link" href="/PrincipalEvaluador/<%= datospersona[0].idpersona%>">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>REVISTAS</span></a>
-            </li>
-
-            <!-- item articulos-->
-            <li class="nav-item">
-                <a class="nav-link" href="/PrincipalEvaluador/<%= datospersona[0].idpersona%>">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>ARTÍCULOS</span></a>
-            </li>
+                <!-- item articulos-->
+                <li class="nav-item">
+                    <button type="submit" class="btn btn-outline-info btn-user btn-block" name="articulos"
+                        value="1">ARTÍCULOS</button>
+                </li>
+            </form>
 
             <!-- categorias  -->
             <li class="nav-item">
@@ -172,10 +168,10 @@
                             <div class="row">
 
                                 <div class="col-lg-10 mb-15">
-                                    <div class="card shadow mb-4">
+                                    <div class="card shadow mb-4" >
                                         <div class="card-body">
                                             <div>
-                                                <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
+                                                <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 30rem;"
                                                     src="https://biodiversidadsah.files.wordpress.com/2011/04/biologia.jpg"
                                                     alt="">
                                             </div>
@@ -186,8 +182,8 @@
 
                             </div>
                             <div class="card-footer py-3">
-                                <button type="button" class="btn btn-outline-info">Visualizar</button>
-                                <button type="button" class="btn btn-outline-info">Descargar</button>
+                                <button type="button" class="btn btn-success btn-user ">v</button>
+                                <button type="button" class="btn btn-success btn-user ">Descargar</button>
                             </div>
                         </div>
                     </center>

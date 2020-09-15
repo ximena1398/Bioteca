@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Personas</title>
 
     <!-- Custom fonts for this template-->
     <link href="../css/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -33,42 +33,44 @@
 
                 <!-- Buscar-->
                 <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                  <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar.." aria-label="Search"
-                      aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                      </button>
+                    <div class="input-group">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Buscar.."
+                            aria-label="Search" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
                     </div>
-                  </div>
                 </form>
-      
+
                 <!-- panel de postular y usuario -->
                 <ul class="navbar-nav ml-auto">
-                  <div class="topbar-divider d-none d-sm-block"></div>
-      
-                  <!-- Nav Item - User Information -->
-                  <li class="nav-item dropdown no-arrow">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-                      aria-haspopup="true" aria-expanded="false">
-                      <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%= datospersona[0].nombres%></span>
-                      <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-                    </a>
-      
-                    <!-- Dropdown - User Information -->
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="" data-toggle="modal" data-target="#logoutModal">
-                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Salir
-                      </a>
-                    </div>
-                  </li>
-      
+                    <div class="topbar-divider d-none d-sm-block"></div>
+
+                    <!-- Nav Item - User Information -->
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span
+                                class="mr-2 d-none d-lg-inline text-gray-600 small"><%= datospersona[0].nombres%></span>
+                            <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                        </a>
+
+                        <!-- Dropdown - User Information -->
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                            aria-labelledby="userDropdown">
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="" data-toggle="modal" data-target="#logoutModal">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Salir
+                            </a>
+                        </div>
+                    </li>
+
                 </ul>
-      
-              </nav>
+
+            </nav>
 
             <div class="card shadow mb-4">
 
@@ -135,9 +137,14 @@
                                     <td>
                                         <%= element['rol']%>
                                     </td>
-                                    <td><a class="btn btn-danger"
-                                            href="/BorrarPersona/<%= element['idpersona']%>">Borrar</a></td>
-                                    <td><a class="btn btn-success"
+                                    <td>
+                                        <form method="POST" action="/BorrarPersona/<%= datospersona[0].idpersona%>">
+                                            <button type="submit" class="btn btn-danger btn-user btn-block"
+                                                name="borrarPersona" value="<%= element['idpersona']%>">Borrar</button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-success"
                                             href="/actualizar/<%= element['idpersona']%>">Modificar rol</a>
                                     </td>
                                 </tr>

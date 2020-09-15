@@ -61,45 +61,53 @@
       <hr class="sidebar-divider">
 
       <!-- item libros -->
-      <li class="nav-item">
-        <a class="nav-link" href="/PrincipalEvaluador/<%= datospersona[0].idpersona%>">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>LIBROS</span></a>
-      </li>
+      <form method="POST" action="/index/<%= datospersona[0].idpersona%>">
+        <!-- item libros -->
+        <li class="nav-item">
+            <button type="submit" class="btn btn-outline-info btn-user btn-block" name="libros"
+                value="1">LIBROS</button>
+        </li>
 
-      <!-- item revistas -->
-      <li class="nav-item">
-        <a class="nav-link" href="/PrincipalEvaluador/<%= datospersona[0].idpersona%>">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>REVISTAS</span></a>
-      </li>
+        <!-- item revistas -->
+        <li class="nav-item">
+            <button type="submit" class="btn btn-outline-info btn-user btn-block" name="revistas"
+                value="1">REVISTAS</button>
+        </li>
 
-      <!-- item articulos-->
-      <li class="nav-item">
-        <a class="nav-link" href="/PrincipalEvaluador/<%= datospersona[0].idpersona%>">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>ARTÍCULOS</span></a>
-      </li>
+        <!-- item articulos-->
+        <li class="nav-item">
+            <button type="submit" class="btn btn-outline-info btn-user btn-block" name="articulos"
+                value="1">ARTÍCULOS</button>
+        </li>
 
-      <!-- categorias  -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
-          aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>CATEGORÍAS</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="/PrincipalEvaluador/<%= datospersona[0].idpersona%>">Animales</a>
-            <a class="collapse-item" href="/PrincipalEvaluador/<%= datospersona[0].idpersona%>">Plantas</a>
-            <a class="collapse-item" href="/PrincipalEvaluador/<%= datospersona[0].idpersona%>">Botánica</a>
-            <a class="collapse-item" href="/PrincipalEvaluador/<%= datospersona[0].idpersona%>">Zoología</a>
-            <a class="collapse-item" href="/PrincipalEvaluador/<%= datospersona[0].idpersona%>">Ecología</a>
-            <a class="collapse-item" href="/PrincipalEvaluador/<%= datospersona[0].idpersona%>">Conservación</a>
-            <a class="collapse-item" href="/PrincipalEvaluador/<%= datospersona[0].idpersona%>">Genética</a>
-          </div>
-        </div>
-      </li>
+
+        <!-- categorias  -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>CATEGORÍAS</span>
+            </a>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <button type="submit" class="btn btn-light btn-user btn-block" name="animales"
+                        value="1">Animales</button>
+                    <button type="submit" class="btn btn-light btn-user btn-block" name="plantas"
+                        value="1">Plantas</button>
+                    <button type="submit" class="btn btn-light btn-user btn-block" name="botanica"
+                        value="1">Botánica</button>
+                    <button type="submit" class="btn btn-light btn-user btn-block" name="zoologia"
+                        value="1">Zoología</button>
+                    <button type="submit" class="btn btn-light btn-user btn-block" name="ecologia"
+                        value="1">Ecología</button>
+                    <button type="submit" class="btn btn-light btn-user btn-block" name="conservacion"
+                        value="1">Conservación</button>
+                    <button type="submit" class="btn btn-light btn-user btn-block" name="genetica"
+                        value="1">Genética</button>
+                </div>
+            </div>
+        </li>
+    </form>
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
@@ -178,9 +186,10 @@
                   <% datos.forEach(element => { %>
                   <tr>
                     <td>
-                      <a href="/evaluacion/<%= datospersona[0].idpersona%>" class="row2">
-                        <button type="button" class="btn btn-warning">Evaluar</button>
-                      </a>
+                      <form method="POST" action="/evaluacion/<%= datospersona[0].idpersona%>">
+                        <button type="submit" class="btn btn-warning btn-user btn-block" name="documentoid"
+                          value="<%= element['iddocumento']%>"">Evaluar</button>
+                    </form>
                     <td>
                       <button type="button" class="btn btn-info">Descargar</button>
                     </td>
@@ -192,18 +201,12 @@
                       <%= element['correo']%>
                     </td>
                     <td>
-
                       <% datospersona.forEach(elemente => { %>
-                      <a class="btn btn-danger"
-                        href="/BorrarDocumento/<%= element['iddocumento']%>/<%= elemente['idpersona']%>">Borrar</a>
+                        <form method="POST" action="/BorrarDocumento/<%= datospersona[0].idpersona%>">
+                          <button type="submit" class="btn btn-danger btn-user btn-block" name="borrar"
+                            value="<%= element['iddocumento']%>">Borrar</button>
+                      </form>
                       <% }); %>
-
-                      <!--
-                      <button type="button" class="btn btn-success">Almacenar</button>
-        
-                      <a class="btn btn-danger"
-                        href="/BorrarDocumento/<%= element['iddocumento']%>">Borrar</a>  
-                         -->
                     </td>
                   </tr>
                   <% }); %>

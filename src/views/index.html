@@ -31,7 +31,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Nombre principal -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
         <div class="sidebar-brand-icon">
           <img src="http://imgfz.com/i/oLWDpq9.png" alt="holi" width="80" height="60" />
         </div>
@@ -43,16 +43,17 @@
 
       <!-- Item inicio -->
       <li class="nav-item active">
-        <a class="nav-link" href="/">
+        <a class="nav-link" href="">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>INICIO</span></a>
       </li>
 
       <!-- Division -->
-      <hr class="sidebar-divider">
+      
 
       <% if(typeof datospersona !== 'undefined'){ %>
        <% if (datospersona[0].rol==3){ %>
+        <hr class="sidebar-divider">
       <li class="nav-item">
         <a class="nav-link" href="/Postulaciones/<%= datospersona[0].idpersona%>">
             <i class="fas fa-fw fa-chart-area"></i>
@@ -64,51 +65,68 @@
             <i class="fas fa-fw fa-chart-area"></i>
             <span>MIS POSTULACIONES</span></a>
         </li>
+        <hr class="sidebar-divider">
        <% } %>
     <% } %>
-      <!-- item libros -->
-      <li class="nav-item">
-        <a class="nav-link" href="/">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>LIBROS</span></a>
-      </li>
 
-      <!-- item revistas -->
-      <li class="nav-item">
-        <a class="nav-link" href="/">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>REVISTAS</span></a>
-      </li>
+    
 
-      <!-- item articulos-->
-      <li class="nav-item">
-        <a class="nav-link" href="/">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>ARTÍCULOS</span></a>
-      </li>
 
-      <!-- categorias  -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
-          aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>CATEGORÍAS</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="/">Animales</a>
-            <a class="collapse-item" href="/">Plantas</a>
-            <a class="collapse-item" href="/">Botánica</a>
-            <a class="collapse-item" href="/">Zoología</a>
-            <a class="collapse-item" href="/">Ecología</a>
-            <a class="collapse-item" href="/">Conservación</a>
-            <a class="collapse-item" href="/">Genética</a>
-          </div>
-        </div>
-      </li>
+    <% if(typeof datospersona == 'undefined'){ %>
+    <form method="POST" action="/index">
+      <% }else if(datospersona[0].rol==2 || datospersona[0].rol==3){ %>
+        <form method="POST" action="/index/<%= datospersona[0].idpersona%>">
+          <% } %>
+        <!-- item libros -->
+        <li class="nav-item">
+            <button type="submit" class="btn btn-outline-info btn-user btn-block" name="libros"
+                value="1">LIBROS</button>
+        </li>
 
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
+        <!-- item revistas -->
+        <li class="nav-item">
+            <button type="submit" class="btn btn-outline-info btn-user btn-block" name="revistas"
+                value="1">REVISTAS</button>
+        </li>
+
+        <!-- item articulos-->
+        <li class="nav-item">
+            <button type="submit" class="btn btn-outline-info btn-user btn-block" name="articulos"
+                value="1">ARTÍCULOS</button>
+        </li>
+
+
+        <!-- categorias  -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                aria-expanded="true" aria-controls="collapseTwo">
+                <i class="fas fa-fw fa-cog"></i>
+                <span>CATEGORÍAS</span>
+            </a>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <button type="submit" class="btn btn-light btn-user btn-block" name="animales"
+                        value="1">Animales</button>
+                    <button type="submit" class="btn btn-light btn-user btn-block" name="plantas"
+                        value="1">Plantas</button>
+                    <button type="submit" class="btn btn-light btn-user btn-block" name="botanica"
+                        value="1">Botánica</button>
+                    <button type="submit" class="btn btn-light btn-user btn-block" name="zoologia"
+                        value="1">Zoología</button>
+                    <button type="submit" class="btn btn-light btn-user btn-block" name="ecologia"
+                        value="1">Ecología</button>
+                    <button type="submit" class="btn btn-light btn-user btn-block" name="conservacion"
+                        value="1">Conservación</button>
+                    <button type="submit" class="btn btn-light btn-user btn-block" name="genetica"
+                        value="1">Genética</button>
+                </div>
+            </div>
+        </li>
+    </form>
+    
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
 
       <!-- ocultar panel -->
       <div class="text-center d-none d-md-inline">
@@ -289,7 +307,7 @@
                       </div>
                       <div class="card-footer py-3">
                           <button type="button" onclick="Visualizar()" class="btn btn-outline-info">Visualizar</a>
-                          <!--button type="button" onclick="Descargar()" class="btn btn-outline-info">Descargar</button-- >
+                          <!--<button type="button" onclick="Descargar()" class="btn btn-outline-info">Descargar</button >--> 
                       </div>
                   </div>
               </center>
@@ -411,22 +429,26 @@
   <!-- Scroll to Top Button-->
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
-  </a>
+</a>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tab="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Desea cerrar sesion?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Desea cerrar sesion?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                <a class="btn btn-primary" href="/">Salir</a>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
 
   <!-- Bootstrap core JavaScript-->
   <script src="../css/vendor/jquery/jquery.min.js"></script>

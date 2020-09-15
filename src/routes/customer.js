@@ -6,11 +6,12 @@ const router = Router();
 const {controller, session, UsuarioPrincipal, postularDocumento, InformacionDocumento, EvaluadorPrincipal,
      RevisarPostulaciones, SubirArchivoEvaluador, Evaluar, Registrar, OlvidasteContrasena, RegistrarPersona, RegistrarDocumento, 
      getDocumento, IniciarSesion, BorrarPersona, actualizar, Actualizarpersona, BorrarDocumento, SubirDocumento, EvaluarDocumento,
-     InformacionDocumentoEvaluador, InformacionDocumentoOut, clasificacion}= require('../controllers/index');
+     InformacionDocumentoEvaluador, InformacionDocumentoOut, clasificacion, inicio}= require('../controllers/index');
 
 //rutas vistas
 router.get('/', controller);
 router.get('/login', session);
+router.get('/index/:id', inicio);
 
 //router.get('/mispostulacione', MisPostulaciones);
 router.get('/postular/:id', postularDocumento);
@@ -20,7 +21,8 @@ router.get('/PrincipalEvaluador/:id', EvaluadorPrincipal);
 router.get('/Postulaciones/:id', RevisarPostulaciones);
 router.get('/subirarchivo/:id', SubirArchivoEvaluador);
 router.post('/evaluacion/:id', Evaluar);
-router.post('/PrincipalEvaluador/:id', clasificacion);
+router.post('/index/:id', clasificacion);
+router.post('/index', clasificacion);
 router.get('/infodocumentoout', InformacionDocumentoOut);
 
 router.get('/RegistroUsuario', Registrar);
@@ -33,10 +35,10 @@ router.post('/EvaluarDocumento/:idpersona', EvaluarDocumento);
 router.post('/PostularDocumento2/:id', RegistrarDocumento);
 router.post('/subirDocumento/:id', SubirDocumento);
 router.post('/IniciarSesion', IniciarSesion);
-router.get('/BorrarPersona/:id/:id', BorrarPersona);
+router.post('/BorrarPersona/:idpersona', BorrarPersona);
 router.get('/Actualizar/:idpersona', actualizar);
 router.post('/Actualizarpersona', Actualizarpersona);
-router.get('/BorrarDocumento/:id/:idpersona', BorrarDocumento);
+router.post('/BorrarDocumento/:idpersona', BorrarDocumento);
 //router.get('/BorrarDocumento/:id', BorrarDocumento);
 
 router.get('/PrincipalUsuario/:id', UsuarioPrincipal);
